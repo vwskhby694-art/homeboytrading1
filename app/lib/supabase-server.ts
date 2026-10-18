@@ -1,0 +1,16 @@
+import "server-only";
+import { createClient } from "@supabase/supabase-js";
+
+export function getSupabaseAdmin() {
+  const url = process.env.SUPABASE_URL;
+  const secret = process.env.SUPABASE_SECRET_KEY;
+  if (!url || !secret) return null;
+
+  return createClient(url, secret, {
+    auth: {
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+      persistSession: false
+    }
+  });
+}
